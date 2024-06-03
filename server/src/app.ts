@@ -1,11 +1,14 @@
 import "express-async-errors";
 import express from "express";
-import mongoClient, {connectMongo, disconnectMongo} from "./mongoClient";
+import mongoClient, { connectMongo, disconnectMongo } from "./mongoClient";
 import { router as geoRouter } from "./geo/router";
 import { errorHandler } from "./errorHandler";
 import { disableCorsMiddleware } from "./disableCorsMiddleware";
 import bodyParser from "body-parser";
 import mongoose, { model } from "mongoose";
+import SuperHero from "./schemas/SuperHero";
+import superHeroService from "./service/superHeroService";
+import { Company } from "./types";
 
 const SERVER_PORT = process.env.PORT || 3000;
 
@@ -24,10 +27,20 @@ const initApp = async () => {
   });
 
   process.on("SIGINT", async () => {
-    await disconnectMongo()
+    await disconnectMongo();
     process.exit();
   });
 
+  const data = await superHeroService.addSuperHero({
+    name: "Spiderman",
+    secretName: "Peter Parker",
+    biography: "Lorem...",
+    company: Company.MARVEL,
+    imageUrl: "jahksjdk",
+    appearanceYear: 1989,
+  });
+
+  console.log(data);
 };
 
 initApp();
