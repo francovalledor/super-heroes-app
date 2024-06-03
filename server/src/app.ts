@@ -1,7 +1,7 @@
 import "express-async-errors";
 import express from "express";
 import mongoClient, { connectMongo, disconnectMongo } from "./mongoClient";
-import { router as geoRouter } from "./geo/router";
+
 import { errorHandler } from "./errorHandler";
 import { disableCorsMiddleware } from "./disableCorsMiddleware";
 import bodyParser from "body-parser";
