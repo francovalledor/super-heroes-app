@@ -16,7 +16,7 @@ services:
       - ignore:/app/node_modules/
     restart: always
 
-  ui: 
+  ui:
     build:
       context: ./ui
       dockerfile: Dockerfile.dev
@@ -50,7 +50,21 @@ services:
     depends_on:
       - mongodb
 
+  minio:
+    image: minio/minio
+    container_name: minio
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: miniominio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+    command: server --address ":9000" --console-address ":9001" /data
+
 volumes:
   ignore:
   ignore2:
   mongodb_data:
+  minio-data:

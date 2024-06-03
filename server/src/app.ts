@@ -1,13 +1,16 @@
 import "express-async-errors";
 import express from "express";
-import mongoClient, { connectMongo, disconnectMongo } from "./mongoClient";
+import mongoClient, {
+  connectMongo,
+  disconnectMongo,
+} from "./clients/mongoClient";
 
 import { errorHandler } from "./errorHandler";
 import { disableCorsMiddleware } from "./disableCorsMiddleware";
 import bodyParser from "body-parser";
 import mongoose, { model } from "mongoose";
 import SuperHero from "./schemas/SuperHero";
-import superHeroService from "./service/superHeroService";
+import superHeroService from "./services/superHeroService";
 import { Company } from "./types";
 
 const SERVER_PORT = process.env.PORT || 3000;
