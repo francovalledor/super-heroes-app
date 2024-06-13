@@ -3,11 +3,11 @@ export enum Company {
   DC = "DC",
 }
 
-export interface SuperHeroData {
+export interface SuperHeroCreationData {
   company: Company;
   name: string;
   secretName?: string;
-  imageUrl: string;
+  base64Image: string;
   appearanceYear: number;
   biography: string;
   equipment?: string;

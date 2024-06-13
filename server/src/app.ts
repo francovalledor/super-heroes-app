@@ -1,5 +1,5 @@
 import "express-async-errors";
-import express from "express";
+import express, { Router } from "express";
 import mongoClient, {
   connectMongo,
   disconnectMongo,
@@ -10,6 +10,7 @@ import { disableCorsMiddleware } from "./disableCorsMiddleware";
 import bodyParser from "body-parser";
 import storageService from "./services/storageService";
 import imagesRouter from "./routers/imagesRouter";
+import superHerosRouter from "./routers/superHerosRouter";
 
 const SERVER_PORT = process.env.PORT || 3000;
 
@@ -18,7 +19,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use(disableCorsMiddleware);
 
-app.use("/api", imagesRouter);
+const apiRouter = Router();
+
+apiRouter.use("/images", imagesRouter);
+apiRouter.use("/super-heros", superHerosRouter);
+
+app.use("/api", apiRouter);
 
 app.use(errorHandler);
 
