@@ -8,10 +8,8 @@ import mongoClient, {
 import { errorHandler } from "./errorHandler";
 import { disableCorsMiddleware } from "./disableCorsMiddleware";
 import bodyParser from "body-parser";
-import mongoose, { model } from "mongoose";
-import SuperHero from "./schemas/SuperHero";
-import superHeroService from "./services/superHeroService";
-import { Company } from "./types";
+import storageService from "./services/storageService";
+import imagesRouter from "./routers/imagesRouter";
 
 const SERVER_PORT = process.env.PORT || 3000;
 
@@ -20,10 +18,13 @@ const app = express();
 app.use(bodyParser.json());
 app.use(disableCorsMiddleware);
 
+app.use("/api", imagesRouter);
+
 app.use(errorHandler);
 
 const initApp = async () => {
   await connectMongo();
+  await storageService.initStorageService();
 
   app.listen(SERVER_PORT, () => {
     console.log(`Server ready 🤙🏽 Listening on port ${SERVER_PORT}`);
@@ -33,17 +34,6 @@ const initApp = async () => {
     await disconnectMongo();
     process.exit();
   });
-
-  const data = await superHeroService.addSuperHero({
-    name: "Spiderman",
-    secretName: "Peter Parker",
-    biography: "Lorem...",
-    company: Company.MARVEL,
-    imageUrl: "jahksjdk",
-    appearanceYear: 1989,
-  });
-
-  console.log(data);
 };
 
 initApp();
