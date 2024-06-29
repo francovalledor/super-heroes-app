@@ -1,7 +1,18 @@
 import { snakeCase } from "lodash";
-import SuperHero from "../schemas/SuperHero";
+import SuperHeroModel from "../schemas/SuperHero";
 import { SuperHeroCreationData } from "../types";
 import storageService from "./storageService";
+import { initialData } from "../data/initialData";
+
+const loadInitialSuperHeros = async () => {
+  const count = await SuperHeroModel.countDocuments();
+
+  if (count > 0) return;
+
+  await Promise.all(initialData.map(addSuperHero));
+
+  console.log("Initial data loaded 🎉");
+};
 
 const addSuperHero = async (data: SuperHeroCreationData) => {
   const { base64Image, ...rest } = data;
@@ -11,7 +22,7 @@ const addSuperHero = async (data: SuperHeroCreationData) => {
     data.base64Image
   );
 
-  const superHero = new SuperHero({
+  const superHero = new SuperHeroModel({
     ...rest,
     imageUrl: `/api/images/${imageName}`,
   });
@@ -21,4 +32,4 @@ const addSuperHero = async (data: SuperHeroCreationData) => {
   return superHero;
 };
 
-export default { addSuperHero };
+export default { addSuperHero, loadInitialSuperHeros };

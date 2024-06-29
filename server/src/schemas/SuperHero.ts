@@ -18,6 +18,6 @@ const SuperHeroSchema: Schema = new Schema({
   equipment: { type: String },
 });
 
-const SuperHero = mongoose.model<ISuperHero>("SuperHero", SuperHeroSchema);
+const SuperHeroModel = mongoose.model<ISuperHero>("SuperHero", SuperHeroSchema);
 
-export default SuperHero;
+export default SuperHeroModel;

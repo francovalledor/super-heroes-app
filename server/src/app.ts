@@ -11,6 +11,7 @@ import bodyParser from "body-parser";
 import storageService from "./services/storageService";
 import imagesRouter from "./routers/imagesRouter";
 import superHerosRouter from "./routers/superHerosRouter";
+import superHeroService from "./services/superHeroService";
 
 const SERVER_PORT = process.env.PORT || 3000;
 
@@ -31,6 +32,7 @@ app.use(errorHandler);
 const initApp = async () => {
   await connectMongo();
   await storageService.initStorageService();
+  await superHeroService.loadInitialSuperHeros();
 
   app.listen(SERVER_PORT, () => {
     console.log(`Server ready 🤙🏽 Listening on port ${SERVER_PORT}`);
