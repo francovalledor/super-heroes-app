@@ -32,4 +32,8 @@ const addSuperHero = async (data: SuperHeroCreationData) => {
   return superHero;
 };
 
-export default { addSuperHero, loadInitialSuperHeros };
+const getAll = async () => {
+  return SuperHeroModel.find();
+};
+
+export default { addSuperHero, loadInitialSuperHeros, getAll };

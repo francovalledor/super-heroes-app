@@ -20,4 +20,10 @@ const addSuperHero: RequestHandler = async (req, res) => {
   res.status(StatusCodes.CREATED).send(superHero);
 };
 
-export default { addSuperHero };
+const getAll: RequestHandler = async (req, res) => {
+  const superHeros = await superHeroService.getAll();
+
+  res.send(superHeros);
+};
+
+export default { addSuperHero, getAll };
