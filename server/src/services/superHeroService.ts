@@ -19,7 +19,7 @@ const addSuperHero = async (data: SuperHeroCreationData) => {
 
   const imageName = await storageService.uploadImage(
     snakeCase(data.name),
-    data.base64Image
+    data.base64Image.replace("data:image/jpeg;base64,", "")
   );
 
   const superHero = new SuperHeroModel({
