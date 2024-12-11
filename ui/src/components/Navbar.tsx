@@ -51,7 +51,7 @@ export function Navbar() {
             />
           </div>
           <Button
-            variant="ghost"
+            variant="secondary"
             size="icon"
             onClick={() => navigate(-1)}
             className="ml-2"
